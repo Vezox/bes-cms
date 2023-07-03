@@ -16,7 +16,7 @@ const user = reactive({
 
 const login = (): void => {
     axios
-        .post('/api/user/login', user)
+        .post('/user/login', user)
         .then((response) => {
             cookies.set('token', response.data.token)
             router.push('/')
@@ -40,11 +40,6 @@ const login = (): void => {
                 <v-checkbox v-model="checkbox" color="primary" hide-details>
                     <template v-slot:label class="text-body-1">Remeber this Device</template>
                 </v-checkbox>
-                <div class="ml-sm-auto">
-                    <RouterLink to="/" class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium"
-                        >Forgot Password ?</RouterLink
-                    >
-                </div>
             </div>
         </v-col>
         <v-col cols="12" class="pt-0">

@@ -43,7 +43,6 @@ const buttonAction = (type: any) => {
         revertButtonCreateTopic()
     }
 }
-console.log(route.fullPath)
 onMounted(() => {
     if (window.innerWidth <= 1270) {
         sDrawer.value = false;
@@ -74,9 +73,9 @@ onMounted(() => {
                         <!---End Single Item-->
                     </template>
                 </v-list>
-                <div class="pa-4">
+                <!-- <div class="pa-4">
                     <ExtraBox />
-                </div>
+                </div> -->
             </perfect-scrollbar>
         </div>
     </v-navigation-drawer>
@@ -91,7 +90,7 @@ onMounted(() => {
                     variant="flat"
                     size="small"
                 >
-                    <Menu2Icon size="20" stroke-width="1.5" />
+                    <Menu2Icon size="20"/>
                 </v-btn>
                 <!-- Notification -->
                 <NotificationDD />

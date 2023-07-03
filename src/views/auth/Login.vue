@@ -13,14 +13,8 @@ import LoginForm from '@/components/auth/LoginForm.vue';
                             <div class="d-flex justify-center py-4">
                                 <Logo />
                             </div>
-                            <div class="text-body-1 text-muted text-center mb-3">Your Social Campaigns</div>
                             <LoginForm />
-                            <h6 class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3">
-                                New to Modernize?
-                                <RouterLink to="/auth/register"
-                                    class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
-                                    Create an account</RouterLink>
-                            </h6>
+
                         </v-card-item>
                     </v-card>
                 </v-col>

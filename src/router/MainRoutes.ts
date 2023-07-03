@@ -71,6 +71,16 @@ const MainRoutes = {
             path: '/topics/:id',
             component: () => import('@/views/topic/DetailTopic.vue')
         },
+        {
+            name: "List consultation",
+            path: "/consultations",
+            component: () => import("@/views/consultation/List.vue")
+        },
+        {
+            name: "List recruitment",
+            path: "/recruitment",
+            component: () => import("@/views/recruitment/List.vue")
+        }
     ]
 };
 

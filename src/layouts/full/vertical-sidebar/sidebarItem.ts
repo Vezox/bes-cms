@@ -37,14 +37,19 @@ const sidebarItem: menu[] = [
         to: '/category'
     },
     {
-        title: 'Danh sách liên hệ',
-        icon: MoodHappyIcon,
-        to: '/contacts'
-    },
-    {
         title: 'DS chủ đề (Hình ảnh)',
         icon: MoodHappyIcon,
         to: '/topics'
+    },
+    {
+        title: 'Danh sách tư vấn',
+        icon: MoodHappyIcon,
+        to: '/consultations'
+    },
+    {
+        title: 'Danh sách CV',
+        icon: MoodHappyIcon,
+        to: '/recruitment'
     },
     {
         title: 'Dashboard',
