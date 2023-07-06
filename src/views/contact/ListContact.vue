@@ -69,7 +69,7 @@ const fetchPost = (): void => {
         search: search.value
     };
     axios
-        .post('/api/contact/list', params)
+        .post('/contact/list', params)
         .then((response) => {
             list.value = response.data.list;
             list.value.map((i: any) => (loadingPost.value[i._id] = false));
@@ -104,7 +104,7 @@ const deletePost = (): void => {
     loadingPost.value[postId.value] = true;
     dialog.value = false;
     axios
-        .delete('/api/contact/delete/' + postId.value)
+        .delete('/contact/delete/' + postId.value)
         .then((response) => {
             toast('Xoá liên hệ thành công');
             fetchPost();
@@ -197,7 +197,6 @@ const openDialog = (id: string) => {
                                         item-value="abbr"
                                         label="Select"
                                         persistent-hint
-                                        return-object
                                         single-line
                                         variant="underlined"
                                         @update:model-value="changeSize"

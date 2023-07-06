@@ -47,11 +47,6 @@ const MainRoutes = {
             component: () => import('@/views/post/ListPost.vue')
         },
         {
-            name: 'Category',
-            path: '/category',
-            component: () => import('@/views/category/Category.vue')
-        },
-        {
             name: 'List Contact',
             path: '/contacts',
             component: () => import('@/views/contact/ListContact.vue')

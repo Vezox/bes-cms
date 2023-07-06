@@ -32,11 +32,6 @@ const sidebarItem: menu[] = [
         to: '/list-post'
     },
     {
-        title: 'Thể loại',
-        icon: MoodHappyIcon,
-        to: '/category'
-    },
-    {
         title: 'DS chủ đề (Hình ảnh)',
         icon: MoodHappyIcon,
         to: '/topics'

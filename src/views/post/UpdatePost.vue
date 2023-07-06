@@ -10,48 +10,26 @@ import { revertButtonCreatePost, loadingCreatePost, setLoadingCreatePost, button
 import { UploadAdapter } from '@/plugins/upload';
 import { useRoute } from 'vue-router';
 import LoadingPopupVue from '@/components/LoadingPopup.vue';
+import { router } from '@/router';
 
 const { cookies } = useCookies();
 const route = useRoute();
 const editor = ref(ClassicEditor);
-const editorData = ref('<p>Content of the editor.</p>');
+const listType = ref<any>([
+  { label: 'Tin tức', value: 'news' },
+  { label: 'Sự kiện', value: 'event' }
+]);
 const editorConfig = ref({});
-const select = ref<any>({});
-const listCategory = ref<any>([]);
 const postData = ref<any>({});
 const post = reactive({
     title: '',
     descriptions: '',
-    category: '',
+    type: '',
     content: '',
     files: <any>[]
 });
 const loading = ref(false)
 
-
-const fetchCategory = (): void => {
-    axios
-        .get('/api/category/list')
-        .then((response) => {
-            listCategory.value = response.data.list;
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-};
-
-const test = () => {
-    console.log(post.files);
-};
-
-const loadData = computed(() => {
-    return [post.title, listCategory.value.length].join('-');
-});
-
-watch(loadData, (newVal) => {
-    if (newVal == '-0') return;
-    select.value = listCategory.value.filter((i: any) => postData.value.category.find( (c: any) => c._id == i._id));
-});
 
 watch(buttonCreatePost, () => {
     updatePost();
@@ -73,6 +51,9 @@ const validateForm = () => {
     if (!post.content || !post.content.trim()) {
         return { success: false, message: 'Nội dung bài viết không được bỏ trống' };
     }
+    if(!post.type || !post.type.trim()) {
+        return { success: false, message: 'Loại bài viết không được bỏ trống' };
+    }
     return { success: true };
 };
 
@@ -85,22 +66,19 @@ const updatePost = async (): Promise<void> => {
     setLoadingCreatePost(true);
     let data: any = new FormData();
 
-    for (var i = 0; i < select.value.length; i++ ){
-        let cate = select.value[i];
-        data.append('category', cate);
-    }
-
     data.append('title', post.title);
     data.append('descriptions', post.descriptions);
     data.append('content', post.content);
+    data.append('type', post.type);
     if (post.files.length) {
         data.append('file', post.files[0]);
     }
 
     axios
-        .post('/api/post/update/' + postData.value._id, data)
+        .post('/post/update/' + postData.value._id, data)
         .then((response) => {
             toast('Cập nhật bài viết thành công');
+            router.push('/list-post');
         })
         .catch((error) => {
             console.error(error);
@@ -113,12 +91,13 @@ const fetchPost = (): void => {
     if (!route.query.slug) return;
     loading.value = true
     axios
-        .get('/api/post/get/' + route.query.slug)
+        .get('/post/get-update/' + route.query.slug)
         .then((response) => {
             postData.value = response.data.data;
             post.title = postData.value.title;
             post.content = postData.value.content;
             post.descriptions = postData.value.descriptions;
+            post.type = postData.value.type;
         })
         .catch((error) => {
             console.error(error);
@@ -126,7 +105,6 @@ const fetchPost = (): void => {
 };
 
 fetchPost();
-fetchCategory();
 
 const onReady = (eventData: any) => {
     eventData.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
@@ -163,7 +141,6 @@ const onReady = (eventData: any) => {
                     <v-label class="font-weight-bold mb-1">Ảnh bìa bài viết <span style="color: red">*</span> </v-label>
                     <v-file-input
                         v-model="post.files"
-                        @change="test"
                         :show-size="1000"
                         accept="image/*"
                         class="input-item"
@@ -173,14 +150,12 @@ const onReady = (eventData: any) => {
 
                     <v-label class="font-weight-bold mb-1">Thể loại <span style="color: red">*</span> </v-label>
                     <v-select
-                        v-model="select"
-                        :items="listCategory"
-                        item-title="name"
-                        item-value="_id"
+                        v-model="post.type"
+                        :items="listType"
+                        item-title="label"
+                        item-value="value"
                         label="Chọn thể loại"
-                        @update:modelValue="test"
                         persistent-hint
-                        multiple
                         single-line
                     ></v-select>
 

@@ -41,7 +41,7 @@ const submitForm = () => {
     if (!topic.value || !topic.value.trim()) return;
     loading.value = true;
     axios
-        .post('/api/topic/create', { name: topic.value })
+        .post('/topic/create', { name: topic.value })
         .then((response: any) => {
             toast('Thành công');
             topic.value = '';

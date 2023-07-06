@@ -13,7 +13,7 @@ const fetchContact = (): void => {
     if (!route.params.id) return;
     loading.value = true;
     axios
-        .get('/api/contact/get/' + route.params.id)
+        .get('/contact/get/' + route.params.id)
         .then((response) => {
             contact.value = response.data.data;
         })

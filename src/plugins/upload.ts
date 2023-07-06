@@ -26,7 +26,7 @@ export class UploadAdapter {
   
     _initRequest() {
       const xhr = this.xhr = new XMLHttpRequest();
-      xhr.open('POST', import.meta.env.VITE_API_URL + '/api/upload', true);
+      xhr.open('POST', import.meta.env.VITE_API_URL + '/upload', true);
       xhr.responseType = 'json';
       xhr.setRequestHeader('authorization', 'Bearer ' + cookies.get('token')); // set your token here
     }
@@ -47,10 +47,10 @@ export class UploadAdapter {
         }
   
         resolve({
-          'alt': "test nè",
+          alt: "BES cộng đồng học tiếng anh cho doanh nhân Việt Nam",
           urls: {
             default: response.imageURL,
-            'alt': "test tiếp nè"
+            alt: "BES cộng đồng học tiếng anh cho doanh nhân Việt Nam",
           }
         });
       });

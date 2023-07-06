@@ -29,10 +29,11 @@ const fetchImage = (): void => {
         topicId: route.params.id
     };
     axios
-        .post('/api/topic/list-image-topic', params)
+        .post('/topic/list-image-topic', params)
         .then((response) => {
             let rs = response.data.list;
             listImage.value = rs.map((i: any) => i.image);
+            console.log(listImage.value);
             totalPageImage.value = response.data.totalPage;
         })
         .catch((error) => {
@@ -46,7 +47,7 @@ const fetchTopic = (): void => {
     if (!route.params.id) return;
     loading.value = true;
     axios
-        .get('/api/topic/get/' + route.params.id)
+        .get('/topic/get/' + route.params.id)
         .then((rs: any) => (topic.value = rs.data.data))
         .catch((error) => console.log(error))
         .finally(() => (loading.value = false));
@@ -59,7 +60,7 @@ const updateName = () => {
     if (!route.params.id || !topic.value.name) return;
     loadingUpdate.value = true;
     axios
-        .post('/api/topic/update/' + route.params.id, {
+        .post('/topic/update/' + route.params.id, {
             name: topic.value.name
         })
         .then((rs: any) => {
@@ -87,7 +88,7 @@ const deleteImageTopic = () => {
     if (!route.params.id) return;
     loadingDelete.value = true;
     axios
-        .post('/api/image-topic/delete', {
+        .post('/image-topic/delete', {
             topicId: route.params.id,
             imagesId: Object.keys(activeImage.value).filter((i) => activeImage.value[i])
         })

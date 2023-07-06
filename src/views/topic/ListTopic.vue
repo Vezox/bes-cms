@@ -41,7 +41,7 @@ const fetchPost = (): void => {
         search: search.value
     };
     axios
-        .post('/api/topic/list', params)
+        .post('/topic/list', params)
         .then((response) => {
             list.value = response.data.list;
             list.value.map((i: any) => (loadingPost.value[i._id] = false));
@@ -76,7 +76,7 @@ const deletePost = (): void => {
     loadingPost.value[postId.value] = true;
     dialog.value = false;
     axios
-        .delete('/api/topic/delete/' + postId.value)
+        .delete('/topic/delete/' + postId.value)
         .then((response) => {
             toast('Xoá chủ đề thành công');
             fetchPost();

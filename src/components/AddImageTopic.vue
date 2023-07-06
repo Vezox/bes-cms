@@ -13,7 +13,7 @@
                     accept="image/*"
                     class="input-item"
                     :multiple="true"
-                    label="Tải lên ảnh bìa"
+                    label="Tải lên hình ảnh"
                     color="primary"
                 ></v-file-input>
 
@@ -58,11 +58,13 @@ const uploadImage = () => {
         let file = files.value[i];
         data.append('file', file);
     }
-    // data.append('file', files.value)
+    if(!props.topicId) return toast.error('Chưa chọn chủ đề!');
+    data.append('topicId', props.topicId)
     axios
-        .post('/api/upload', data)
+        .post('/upload', data)
         .then((response) => {
             toast('Tải ảnh lên thành công!');
+            files.value = []
             page.value = 1;
             fetchImage();
         })
@@ -88,7 +90,7 @@ const fetchImage = (): void => {
         topicId: props.topicId
     };
     axios
-        .post('/api/image/list', params)
+        .post('/image/list', params)
         .then((response) => {
             listImage.value = response.data.list;
             listImage.value.map((i: any) => {
@@ -111,6 +113,7 @@ const changePaginationImage = (p: number) => {
 };
 
 const revertActiveImage = (id: string) => {
+    console.log(id);
     activeImage.value[id] = !activeImage.value[id];
 };
 
@@ -125,7 +128,7 @@ const submitForm = () => {
         images: Object.keys(activeImage.value).filter((key: any) => activeImage.value[key])
     };
     axios
-        .post('/api/topic/update/' + props.topicId, data)
+        .post('/topic/update/' + props.topicId, data)
         .then((response: any) => {
             toast('Thành công');
             emit('success', 're-load');

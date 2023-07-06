@@ -23,7 +23,7 @@ const chooseImage = (id: string) => {
                 rounded="md"
                 style="cursor: pointer"
             >
-                <v-img :src="card.src" max-height="220px" class="rounded-t-md"></v-img>
+                <v-img :src="card.url" max-height="220px" class="rounded-t-md"></v-img>
 
                 <!-- <div class="d-flex justify-end mr-4 mt-n5">
                     <v-btn size="40" icon class="bg-primary d-flex">
