@@ -5,7 +5,7 @@ const { cookies } = useCookies();
 
 
 const axiosApi = axios.create({
-  baseURL: "https://api.besgroup.asia",
+  baseURL: "https://api.besgroup.asia/api",
 
   // baseURL: "http://localhost:3100/api",
 });
