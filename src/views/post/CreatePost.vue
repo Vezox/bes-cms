@@ -7,6 +7,8 @@ import axios from '@/plugins/axios';
 import { toast } from 'vue3-toastify';
 import { revertButtonCreatePost, loadingCreatePost, setLoadingCreatePost, buttonCreatePost } from '@/store/index';
 import { UploadAdapter } from '@/plugins/upload';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 // import { Image, ImageCaption, ImageStyle, ImageToolbar, ImageUpload, PictureEditing } from '@ckeditor/ckeditor5-image';
 // import Image from '@ckeditor/ckeditor5-image/src/image';
 // import ImageResizeEditing from '@ckeditor/ckeditor5-image/src/imageresize/imageresizeediting';
@@ -15,16 +17,21 @@ import { UploadAdapter } from '@/plugins/upload';
 const { cookies } = useCookies();
 
 const editor = ref(ClassicEditor);
-const editorConfig = ref({});
+const editorConfig = ref({
+  mediaEmbed: { previewsInData: true }
+});
 const listType = ref<any>([
   { label: 'Tin tức', value: 'news' },
-  { label: 'Sự kiện', value: 'event' }
+  { label: 'Sự kiện', value: 'event' },
+  { label: 'Blog', value: 'blog' }
 ]);
 const post = reactive({
   title: '',
   descriptions: '',
   type: '',
   content: '',
+  address: '',
+  date: new Date(),
   files: <any>[]
 });
 
@@ -48,7 +55,7 @@ const validateForm = () => {
   if (!post.content || !post.content.trim()) {
     return { success: false, message: 'Nội dung bài viết không được bỏ trống' };
   }
-  if(!post.type) {
+  if (!post.type) {
     return { success: false, message: 'Loại bài viết không được bỏ trống' };
   }
   return { success: true };
@@ -67,6 +74,8 @@ const createPost = async (): Promise<void> => {
   data.append('content', post.content);
   data.append('file', post.files[0]);
   data.append('type', post.type);
+  data.append('address', post.address);
+  data.append('date', new Date(post.date).getTime());
 
   axios
     .post('/post/create', data)
@@ -129,6 +138,21 @@ const onReady = (eventData: any) => {
             persistent-hint
             single-line
           ></v-select>
+
+          <div style="margin-bottom: 24px" v-if="post.type == 'event'">
+            <v-label class="font-weight-bold mb-1">Địa điểm<span style="color: red">*</span> </v-label>
+            <v-text-field
+              v-model="post.address"
+              class="input-item"
+              label="Nhâp địa điểm"
+              variant="outlined"
+              hide-details
+              color="primary"
+            ></v-text-field>
+
+            <v-label class="font-weight-bold mb-1">Thời gian<span style="color: red">*</span> </v-label>
+            <VueDatePicker v-model="post.date"></VueDatePicker>
+          </div>
 
           <v-row>
             <v-col cols="12" sm="6">

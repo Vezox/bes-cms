@@ -6,6 +6,8 @@ const { cookies } = useCookies();
 
 const axiosApi = axios.create({
   baseURL: "https://api.besgroup.asia",
+
+  // baseURL: "http://localhost:3100/api",
 });
 
 enum MessageError {

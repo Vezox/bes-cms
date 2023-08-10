@@ -13,8 +13,16 @@ const list = ref<any>([]);
 const listType = ref<any>([
   { label: 'Tất cả', value: 'all' },
   { label: 'Tin tức', value: 'news' },
-  { label: 'Sự kiện', value: 'event' }
+  { label: 'Sự kiện', value: 'event' },
+  { label: 'Blog', value: 'blog' }
 ]);
+
+const sub: any = {
+  news: 'Tin tức',
+  event: 'Sự kiện',
+  blog: 'Blog'
+}
+
 const select = ref({
   name: 'Tất cả',
   _id: '1'
@@ -172,6 +180,7 @@ const openDialog = (id: string) => {
                     <tr>
                       <th class="text-subtitle-1 font-weight-bold">Stt</th>
                       <th class="text-subtitle-1 font-weight-bold">Tên bài viết</th>
+                      <th class="text-subtitle-1 font-weight-bold">Loại</th>
                       <th class="text-subtitle-1 font-weight-bold">Ngày tạo</th>
                       <th class="text-subtitle-1 font-weight-bold">Action</th>
                     </tr>
@@ -187,6 +196,9 @@ const openDialog = (id: string) => {
                             {{ item.title }}
                           </h6>
                         </div>
+                      </td>
+                      <td>
+                        {{ sub[item.type] }}
                       </td>
                       <td>
                         <h6 class="text-body-1 text-muted">{{ new Date(item.created_time).toLocaleString() }}</h6>
