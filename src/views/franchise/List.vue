@@ -47,7 +47,7 @@ const fetchPost = (): void => {
   axios
     .post('/franchise/get', params)
     .then((response) => {
-      list.value = response.data.list.map(i => {
+      list.value = response.data.list.map((i: any) => {
         i.loading = false;
         return i;
       })
