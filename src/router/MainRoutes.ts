@@ -75,6 +75,11 @@ const MainRoutes = {
             name: "List recruitment",
             path: "/recruitment",
             component: () => import("@/views/recruitment/List.vue")
+        },
+        {
+            name: "List franchise",
+            path: "/franchise/list",
+            component: () => import("@/views/franchise/List.vue")
         }
     ]
 };

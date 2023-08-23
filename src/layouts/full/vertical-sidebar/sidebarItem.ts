@@ -47,6 +47,11 @@ const sidebarItem: menu[] = [
         to: '/recruitment'
     },
     {
+        title: 'DS ĐK nhượng quyền',
+        icon: MoodHappyIcon,
+        to: '/franchise/list'
+    },
+    {
         title: 'Dashboard',
         icon: LayoutDashboardIcon,
         to: '/'
